@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- www.aidantaylor.net -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Calculator</title>
+    <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/math.min.js"></script>
+    <script type="text/javascript" src="js/main.min.js"></script>
+    <link href="css/main.min.css" rel="stylesheet" type="text/css"/>
+</head>
+<body class="browser">
+
+<div class="modal fade" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn btn-sm btn-danger close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body texts"></div>
+        </div>
+    </div>
+</div>
+
+<div class="blackout"></div>
+
+<div class="container">
+
+    <div class="title-bar">
+        <div class="drag"></div>
+        <div class="calc-options">
+            <ul>
+                <li class="settings">
+                    <div class="btn-group">
+                        <button type="button" class="settings dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i></button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="theme"><a href="#" id="dark">Dark Theme</a></li>
+                            <li class="theme"><a href="#" id="light">Light Theme</a></li>
+                            <li class="theme"><a href="#" id="blue">Blue Theme</a></li>
+                            <li class="theme"><a href="#" id="purple">Purple Theme</a></li>
+                            <li class="divider"></li>
+                            <li class="inputset"><a href="#" id="standard">Standard</a></li>
+                            <li class="inputset"><a href="#" id="scientific">Scientific</a></li>
+                            <li class="inputset disabled"><a href="#" id="programmer">Programmer - Coming Soon</a></li>
+                            <li class="divider"></li>
+                            <li class="mode" style="text-wrap: normal;padding:0px 10px 10px 10px;">Browser mode is currently disabled while a fix is worked on.</li>
+                            <!--<li class="mode"><a href="#" id="browser">Browser Mode</a></li>
+                            <li class="mode"><a href="#" id="app">Popup Mode</a></li>-->
+                        </ul>
+                    </div>
+                </li>
+                <li class="page">
+                    <button class="info" id="info"><i class="fa fa-info"></i></button>
+                </li>
+                <li class="page">
+                    <button class="question" id="help"><i class="fa fa-question"></i></button>
+                </li>
+            </ul>
+        </div>
+        <div class="window-options">
+            <button class="minimize"><i>_</i></button>
+            <button class="close"><i>X</i></button>
+        </div>
+    </div>
+
+    <div class="calculator text-center">
+
+        <div class="row">
+
+            <div class="col-sm-12 screen-wrapper">
+                <div class="screen row"><span id="temp"></span>
+                    <div class="col-sm-12 row stat">
+                        <div class="col-sm-4 pull-left text-right">
+                            <div class="col-sm-6 pull-left"><span id="memory">M</span></div>
+                            <div class="col-sm-6"><span id="overflow">«</span></div>
+                        </div>
+
+                        <div class="col-sm-8 pull-right">
+                            <div id="method"></div>
+                        </div>
+                    </div>
+
+                    <input class="col-sm-12" id="screen" readonly value="0"/>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="panel-buttons col-sm-12" style="margin-left: 0px;">
+                <div class="row top">
+                    <div class="col-sm-3 scientific spacer"></div>
+                    <button class="col-sm-3 scientific normal highlight" id="angleMode">deg</button>
+                    <button class="col-sm-3" value="backspace"><sub style="position:relative;top:-2px;font-size:14px;">←</sub></button>
+                    <button class="col-sm-3 hscientific">MC</button>
+                    <button class="col-sm-3">CE</button>
+                    <button class="col-sm-3">AC</button>
+                </div>
+
+                <div class="row top">
+                    <button class="col-sm-3 scientific normal">MC</button>
+                    <button class="col-sm-3">MR</button>
+                    <button class="col-sm-3">MS</button>
+                    <button class="col-sm-3">M+</button>
+                    <button class="col-sm-3">M-</button>
+                </div>
+
+                <div class="row top">
+                    <button class="col-sm-3" value="sqrt">√</button>
+                    <button class="col-sm-3 scientific normal" value="round">rnd</button>
+                    <!--<button class="col-sm-3 scientific normal" value="yrt"><span style="position: absolute;font-size: 9px;padding-left: 2px;top: -2px;">y</span>√</button>-->
+                    <button class="col-sm-3" value="reciproc">1 / x</button>
+                    <button class="col-sm-3">%</button>
+                    <button class="col-sm-3">±</button>
+                </div>
+
+                <div class="row top scientific shiftSwitch">
+                    <button class="col-sm-3" value="sqr">x<sup>2</sup></button>
+                    <button class="col-sm-3" value="xy">x<sup>y</sup></button>
+                    <button class="col-sm-3 invert" value="sin">Sin</button>
+                    <button class="col-sm-3 invert" value="cos">Cos</button>
+                    <button class="col-sm-3 invert" value="tan">Tan</button>
+                </div>
+
+                <div class="row top scientific shiftSwitch">
+                    <button class="col-sm-3" value="10x">10<sup>x</sup></button>
+                    <button class="col-sm-3" value="log">Log</button>
+                    <button class="col-sm-3" value="exp">Exp</button>
+                    <button class="col-sm-3" value="mod">Mod</button>
+                    <button class="col-sm-3" value="in">In</button>
+                </div>
+            </div>
+
+            <div class="panel-buttons col-sm-12">
+                <div class="row round">
+                    <button value="pi" class="col-sm-3 scientific pi" style="font-size: 14px;">&pi;</button>
+                    <button class="col-sm-3">7</button>
+                    <button class="col-sm-3">8</button>
+                    <button class="col-sm-3">9</button>
+                    <button value="divide" class="col-sm-3 coloured">÷</button>
+                </div>
+
+                <div class="row round" style="margin-top: 5px;">
+                    <button class="col-sm-3 scientific" value="fact" style="font-size: 14px;">n!</button>
+                    <button class="col-sm-3">4</button>
+                    <button class="col-sm-3">5</button>
+                    <button class="col-sm-3">6</button>
+                    <button value="times" class="col-sm-3 coloured">×</button>
+                </div>
+
+                <div class="row round" style="margin-top: 5px;">
+                    <button class="col-sm-3 scientific" style="font-size: 14px;">)</button>
+                    <button class="col-sm-3">1</button>
+                    <button class="col-sm-3">2</button>
+                    <button class="col-sm-3">3</button>
+                    <button value="minus" class="col-sm-3 coloured">-</button>
+                </div>
+
+                <div class="row round" style="margin-top: 5px;">
+                    <button class="col-sm-3 scientific" style="font-size: 14px;">(</button>
+                    <button value="decimal" class="col-sm-3">•</button>
+                    <button class="col-sm-3">0</button>
+                    <button value="equals" class="col-sm-3 coloured">=</button>
+                    <button value="plus" class="col-sm-3 coloured">+</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

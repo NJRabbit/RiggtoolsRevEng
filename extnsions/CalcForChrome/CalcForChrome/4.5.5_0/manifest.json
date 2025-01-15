@@ -1,0 +1,22 @@
+{
+   "app": {
+      "background": {
+         "scripts": [ "js/jquery-2.1.3.min.js", "js/background.min.js" ]
+      }
+   },
+   "author": "Aidan Taylor",
+   "description": "Calculator for Chrome!",
+   "icons": {
+      "128": "icon-128.ico",
+      "16": "icon-16.ico",
+      "64": "icon-64.ico"
+   },
+   "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCwG2RqkQJUc7lTRcYqW/5PY97Wy56Nfmm2wTscA2OSUre5LqteeLvxgWdLm6Cx7dwjy8WrvNC3O3MHxGnfQX1RKuFYy8aW+bNOG59/T0OdqUt8iVntFbBQqb5CmA11f9ZDTVhQtsBba+WDm2tMh9UnV/8lwsavPkW6KRWyC4H5HQIDAQAB",
+   "manifest_version": 2,
+   "minimum_chrome_version": "35",
+   "name": "Calculator",
+   "offline_enabled": true,
+   "permissions": [ "storage", "clipboardRead", "clipboardWrite", "contextMenus" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "4.5.5"
+}

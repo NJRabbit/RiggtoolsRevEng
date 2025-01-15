@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Devtools</title>
+</head>
+<body>
+    <div class="main">
+        <div class="header">
+            <h1>fierces magic rigging</h1>
+        </div>
+        <p>
+            Press Q for evaluating code under
+            <a class="button" id="extdbg" href="javascript:void(0)">extension id</a>
+        </p>
+        <p>Or press 1-9 for some hardcoded extensions</p>
+        <p>
+            <a class="button hardcoded" ext="adkcpkpghahmbopkjchobieckeoaoeem" href="javascript:void(0)">ls filter</a>
+            <a class="button hardcoded" ext="hpkdokakjglppeekfeekmebfahadnflp" href="javascript:void(0)">ls alert</a>
+            <a class="button hardcoded" ext="haldlgldplgnggkjaafhelgiaglafanh" href="javascript:void(0)">goguardian</a>
+            <a class="button hardcoded" ext="moehkbbcbklmkcjibcbbooebgpogejoc" href="javascript:void(0)">aristotle</a>
+            <a class="button hardcoded" ext="kmffehbidlalibfeklaefnckpidbodff" href="javascript:void(0)">iboss</a>
+            <a class="button hardcoded" ext="mloajfnmjckfjbeeofcdaecbelnblden" href="javascript:void(0)">snap&read</a>
+            <a class="button hardcoded" ext="fogjeanjfbiombghnmkmmophfeccjdki" href="javascript:void(0)">lockdown browser</a>
+            <a class="button hardcoded" ext="kmpjlilnemjciohjckjadmgmicoldglf" href="javascript:void(0)">dyknow cloud</a>
+            <a class="button hardcoded" ext="gndmhdcefbhlchkhipcnnbkcmicncehk" href="javascript:void(0)">GForms Locked Mode (on all enrolled cbs)</a>
+        </p>
+        <p>
+            Press M for evaluating under
+            <a class="button" id="devdbg" href="javascript:void(0)">devtools context</a>
+        </p>
+        <p>Typing cancel in any prompt will cancel the current operation.</p>
+
+        <a class="button" href="devtools://devtools/bundled/devtools_app.html?experiments=true&ws=%%updaterurl%%">Re-open devtools</a>
+        <a class="button" href="javascript:void(0)" id="updater">Update payload</a>
+        <a class="button" href="javascript:void(0)" id="cleanup">Cleanup and reset for extension</a>
+        <a class="button" href="javascript:void(0)" id="activate">Chrome URLs</a>
+        <a class="button" href="javascript:void(0)" id="activate2">Chrome URLs 2</a>
+    </div>
+
+    <style>
+        iframe {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        body {
+            font-family: monospace, sans-serif;
+            background-color: #1e1e2e;
+            color: #cdd6f4;
+            margin: 0;
+            padding: 10px;
+            overflow: hidden;
+        }
+
+        a {
+            color: #b7bdf8;
+        }
+
+        .main {
+            top: 50%;
+            left: 50%;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            border: 2px solid #181825;
+            font-weight: bold;
+            padding: 2%;
+            border-radius: 8px;
+            text-align: center;
+            background-color: #181825;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow: auto; /* Allows scrolling if content overflows */
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            font-size: 1.4em;
+            margin: 0;
+            color: #cdd6f4;
+        }
+
+        .button {
+            position: relative;
+            background-color: #45475a;
+            border: 1px solid #585b70;
+            color: #f8fafc;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 6px 0;
+            cursor: pointer;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .button::before,
+        .button::after {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 0;
+            background: rgba(255, 255, 255, 0.15);
+            transition: width 0.4s ease-in-out;
+        }
+
+        .button::before {
+            left: 50%;
+        }
+
+        .button::after {
+            left: 0;
+            border: 2px solid #b7bdf8;
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .button:hover::before {
+            width: 100%;
+            left: 0;
+        }
+
+        .button:hover::after {
+            opacity: 1;
+        }
+
+        .button:hover {
+            background-color: #585b70;
+            border-color: #7f849c;
+            transform: scale(1.05);
+        }
+
+        .hardcoded {
+            background-color: #f38ba8;
+            border: 1px solid #f28fad;
+            color: #ffffff;
+            padding: 8px 16px;
+            font-size: 14px;
+            margin: 6px 0;
+            cursor: pointer;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: background-color 0.3s ease-in-out, border-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .hardcoded::before,
+        .hardcoded::after {
+            content: '';
+            position: absolute;
+            height: 100%;
+            width: 0;
+            background: rgba(255, 255, 255, 0.15);
+            transition: width 0.4s ease-in-out;
+        }
+
+        .hardcoded::before {
+            left: 50%;
+        }
+
+        .hardcoded::after {
+            left: 0;
+            border: 2px solid #ffcad4;
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .hardcoded:hover::before {
+            width: 100%;
+            left: 0;
+        }
+
+        .hardcoded:hover::after {
+            opacity: 1;
+        }
+
+        .hardcoded:hover {
+            background-color: #f28fad;
+            border-color: #ffccd5;
+            transform: scale(1.05);
+        }
+
+        #watermark {
+            position: fixed;
+            font-family: monospace;
+            font-weight: bolder;
+            bottom: 5px;
+            right: 5px;
+            z-index: 99;
+            color: #f8fafc;
+        }
+    </style>
+
+    <script defer>
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "q") {
+                document.getElementById("extdbg").click();
+            } else if (event.key === "m") {
+                document.getElementById("devdbg").click();
+            } else if (["1", "2", "3", "4", "5", "6", "7", "8", "9"].includes(event.key)) {
+                document
+                    .querySelector(`p .hardcoded:nth-child(${parseInt(event.key)})`)
+                    .click();
+            }
+        });
+    </script>
+</body>
+</html>
